@@ -1,0 +1,205 @@
+{
+  "siteTitle": "GRC Notes",
+  "siteSubtitle": "SAP Security & GRC — Field Reference",
+  "topics": [
+    {
+      "id": "grc-architecture",
+      "order": 1,
+      "menuLabel": "GRC 12 Architecture",
+      "category": "Foundations",
+      "eyebrow": "01 · Foundations",
+      "title": "GRC 12.0 Architecture",
+      "summary": "How Access Control 12.0 is put together: frontend/backend layers, the systems that plug into it, and how the release history maps to what you'll find in a landscape.",
+      "pdf": "assets/pdfs/01-grc-architecture.pdf",
+      "pdfLabel": "1. GRC 12 Architecture.pdf",
+      "readTime": "6 min",
+      "blocks": [
+        {
+          "type": "intro",
+          "text": "GRC (Access Control) is a standalone ABAP system that sits in front of every SAP and non-SAP system whose access needs governing. End users reach it through a browser (NWBC or Fiori); the GRC/BASIS/security team reaches it through GUI + NWBC."
+        },
+        {
+          "type": "keyvalue",
+          "title": "Access Points",
+          "items": [
+            { "k": "End user", "v": "NWBC screen, via web browser" },
+            { "k": "GRC / BASIS / ABAP teams", "v": "SAP GUI + NWBC" },
+            { "k": "NWBC", "v": "Web Dynpro page — support & light configuration" },
+            { "k": "SPRO", "v": "Configuration of GRC — owned jointly by Security, GRC and BASIS" }
+          ]
+        },
+        {
+          "type": "keyvalue",
+          "title": "Backend Modules (AC 12.0)",
+          "items": [
+            { "k": "Access Risk Analysis", "v": "ARA — SoD / risk checks" },
+            { "k": "Business Role Management", "v": "BRM — role build & maintenance" },
+            { "k": "Access Request Management", "v": "ARM — provisioning workflow" },
+            { "k": "Emergency Access Management", "v": "EAM — firefighter IDs" }
+          ]
+        },
+        {
+          "type": "diagram-note",
+          "title": "Plug-in system",
+          "text": "Any system connected to GRC is called a Plug-in system. On-premise plug-ins split into SAP (ABAP: S/4HANA, ECC, HR / JAVA: PI, PO, CRM, EP, MDG, Solman) and Non-SAP. Cloud plug-ins connect over web service/OData: Ariba, Concur, S/4HANA Cloud, SuccessFactors."
+        },
+        {
+          "type": "table",
+          "title": "Software Components — who needs what",
+          "columns": ["Component", "Lives in", "Covers"],
+          "rows": [
+            ["GRCFND_A", "GRC box", "AC + PC + RM (core GRC foundation)"],
+            ["GRCPINW", "Plug-in system", "S/4HANA / ECC / BW / Non-HR systems"],
+            ["GRCPIERP", "Plug-in system", "SAP HR system specifically"],
+            ["SLL_LEG / SLL_NFE", "GRC box", "GTS and NFE add-ons"]
+          ]
+        },
+        {
+          "type": "callout",
+          "text": "Rule of thumb: HR system → GRCPIERP. Everything else SAP ABAP (S/4HANA, ECC, BW) → GRCPINW. JAVA-stack systems (PI/PO/IDM/CRM/EP/MDG/Solman) need a main connector plus a subsequent connector."
+        },
+        {
+          "type": "table",
+          "title": "Release History",
+          "columns": ["Release", "Year", "Notes"],
+          "rows": [
+            ["VIRSA 4.0", "1990s", "ABAP only"],
+            ["GRC 5.1", "2006", "ABAP + JAVA"],
+            ["GRC 10 (V1000)", "2011", "ABAP, Web Dynpro — not HANA compatible"],
+            ["GRC 10.1 (V1100)", "2013", "ABAP, Web Dynpro — HANA compatible, SP22"],
+            ["GRC 12.0 (V1200)", "Oct 2018", "ABAP, Web Dynpro, Fiori optional as front end, any DB — SP 23/24"],
+            ["GRC 12.0 (V8100)", "—", "Same release, HANA DB variant"]
+          ]
+        },
+        {
+          "type": "callout",
+          "text": "DB compatibility: ECC 6.0 EHP1–6 is not HANA compatible; EHP7/8 is. S/4HANA always runs on HANA DB (mandatory) with Fiori as an optional front end."
+        }
+      ]
+    },
+    {
+      "id": "post-installation",
+      "order": 2,
+      "menuLabel": "Post-Installation Steps",
+      "category": "Setup",
+      "eyebrow": "02 · Setup",
+      "title": "Post-Installation Steps (BASIS Pre-Checks)",
+      "summary": "The checklist to run right after GRC is installed — before any functional configuration starts. Mostly BASIS-owned; GRC team just needs to confirm each box is green.",
+      "pdf": "assets/pdfs/02-post-installation.pdf",
+      "pdfLabel": "2. Post Installation Steps.pdf",
+      "readTime": "5 min",
+      "blocks": [
+        {
+          "type": "intro",
+          "text": "These are checks, not configuration — done by BASIS, verified by the GRC consultant before functional work begins."
+        },
+        {
+          "type": "steps",
+          "title": "Checklist",
+          "items": [
+            {
+              "h": "Check required software components",
+              "b": "GRC system needs GRCFND_A. The plug-in system needs GRCPINW (S/4HANA/ECC/BW/CRM/GRC, non-HR) or GRCPIERP (SAP HR). Confirm versions via System → Status → Installed Software."
+            },
+            {
+              "h": "Check BC Sets for *GRAC* and *MSMP* are activated",
+              "b": "T-code SCPR20, table SCPRACTST (SCPR*). Naming tells you the module: GRAC*REQUEST* → ARM, GRAC*ROLE* → BRM, GRAC*RA_RULESET* → ARA, GRAC*SPM* → EAM, GRC*MSMP* → ARM."
+            },
+            {
+              "h": "Check *GRAC* and *NWBC* services are activated",
+              "b": "T-code SICF."
+            },
+            {
+              "h": "Activate applications in client",
+              "b": "SPRO → GRC → General Settings → Activate applications in client. Ensure GRC-AC is Active."
+            },
+            {
+              "h": "Perform Automatic Workflow Customizing",
+              "b": "SPRO → GRC → General Settings → Workflow → Perform Automatic Workflow Customizing (T-code SWU3). Every line — Maintain Runtime Environment, Maintain Definition Environment, Maintain Additional Settings and Services, Classify Tasks as General, Guided Procedures — should show green. If not, hand it to BASIS."
+            },
+            {
+              "h": "Perform Task-Specific Customizing",
+              "b": "SPRO → GRC → General Settings → Workflow → Perform Task-Specific Customizing. Every task under GRC should be marked Background Task or General Task — an empty value should be set to General Task. If tasks are missing, or the GRC-AC folder / Assign Agents option isn't there, that's a BASIS fix via T-code PFTC."
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Version quick-map",
+          "columns": ["Tag", "Meaning"],
+          "rows": [
+            ["V1000", "GRC 10.0"],
+            ["V1100", "GRC 10.1"],
+            ["V1200", "GRC 12.0, any DB"],
+            ["V8100", "GRC 12.0, HANA DB"]
+          ]
+        },
+        {
+          "type": "callout",
+          "text": "DB rule of thumb: ECC system can run on any DB. S/4HANA system runs on HANA DB only."
+        }
+      ]
+    },
+    {
+      "id": "connector-configuration",
+      "order": 3,
+      "menuLabel": "Connector Configuration",
+      "category": "Setup",
+      "eyebrow": "03 · Setup",
+      "title": "Connector Configuration",
+      "summary": "Wiring GRC to a plug-in system: the RFC prerequisite, naming conventions, and the five SPRO steps that turn a connection into something GRC can automate, analyze and provision against.",
+      "pdf": "assets/pdfs/03-connector-configuration.pdf",
+      "pdfLabel": "3. Connector Configuration.pdf",
+      "readTime": "7 min",
+      "blocks": [
+        {
+          "type": "intro",
+          "text": "Prerequisite: a SYSTEM or COMMUNICATION type user ID in the plug-in system (S/4HANA/ECC/BW), assigned the RFC authorizations it needs — auth objects starting with S_RFC* give RFC access. All configuration below happens in the GRC system."
+        },
+        {
+          "type": "diagram-note",
+          "title": "What the connector enables",
+          "text": "S4HANA / BW → GRC AC lets GRC do automation user admin, risk analysis checks, and automation of role admin."
+        },
+        {
+          "type": "callout",
+          "text": "Path for steps 1–3: SPRO → GRC → Common Component Settings → Integration Framework."
+        },
+        {
+          "type": "steps",
+          "title": "Steps",
+          "items": [
+            {
+              "h": "1. Create Connector (SM59)",
+              "b": "Set up the RFC between the plug-in system and GRC. Always define the RFC connection name in CAPITAL letters. Example naming: GRP 350 (GRC) → ID7 800 (ECC) = ID7CLNT800. Transportable connections typically get a fixed name like ECCCLNT100 carried across GD1/GQ1/GP1; non-transportable ones are named per-system per-client (e.g. GD1 100 → ED1 100 = ED1CLNT100)."
+            },
+            {
+              "h": "2a. Define Connectors",
+              "b": "Source connector and logical port should match the target connector. Pick the connection type by target: ECC / S/4HANA On-Premise → SAP. S/4HANA Cloud → S4HANA. Non-SAP → WS (webservice). JAVA systems (PI/PO/IDM/CRM/EP/MDG/Solman) need a Subsequent Connector on top of the main one — that's BASIS-created; SPML1 is the main connector, SPML2 is the sub-subsequent connector. Not required for straight ABAP systems."
+            },
+            {
+              "h": "2b. Define Connector Groups",
+              "b": "Create a group, then: 2.B.1 assign the connector group to a group type — set the connector group status to Logical Group for AC. 2.B.2 assign the connector(s) you created in Step 1 to this group."
+            },
+            {
+              "h": "3. Maintain Connection Settings",
+              "b": "Set the Integration Scenario per connector. AM = Automatic Monitoring (Process Control). The Access Control–relevant ones: AUTH → BRM, PROV → ARM, ROLMG → BRM, SUPMG → EAM."
+            },
+            {
+              "h": "4. Maintain Connector Settings (Path: SPRO → GRC → Access Control)",
+              "b": "Define Application Type, Environment and PSS (Password Self Service)."
+            },
+            {
+              "h": "5. Maintain Mapping for Actions and Connector Groups",
+              "b": "5a. Maintain Connector Group Status — enter the connector group name and make it active. 5b. Assign a default connector to the connector group, per action (Role Generation, Role Risk Analysis, Authorization Maintenance, Provisioning, HR Trigger)."
+            }
+          ]
+        },
+        {
+          "type": "callout",
+          "text": "Two rules that matter: under one connector group, only one system can be the Default Connector for a given action — but every system in the group should still be mapped to every action."
+        }
+      ]
+    }
+  ]
+}
