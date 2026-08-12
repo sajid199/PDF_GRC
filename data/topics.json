@@ -200,6 +200,42 @@
           "text": "Two rules that matter: under one connector group, only one system can be the Default Connector for a given action — but every system in the group should still be mapped to every action."
         }
       ]
+    },
+    {
+      "id": "sync-jobs",
+      "order": 4,
+      "menuLabel": "Sync Jobs",
+      "category": "Operations",
+      "eyebrow": "04 · Operations",
+      "title": "Sync Jobs",
+      "summary": "Overview of synchronization jobs used by GRC (connectors, plugins, schedules).",
+      "pdf": "assets/pdfs/04-Sync Jobs.pdf",
+      "pdfLabel": "4. Sync Jobs.pdf",
+      "readTime": "4 min",
+      "blocks": [
+        {
+          "type": "intro",
+          "text": "Sync jobs keep connectors up to date and ensure data flows between systems."
+        }
+      ]
+    },
+    {
+      "id": "access-risk-analysis",
+      "order": 5,
+      "menuLabel": "Access Risk Analysis (ARA)",
+      "category": "Functionality",
+      "eyebrow": "05 · Functionality",
+      "title": "Access Risk Analysis (ARA)",
+      "summary": "How ARA performs SoD checks, rule sets and risk reporting.",
+      "pdf": "assets/pdfs/05-ARA.pdf",
+      "pdfLabel": "5. Access Risk Analysis.pdf",
+      "readTime": "8 min",
+      "blocks": [
+        {
+          "type": "intro",
+          "text": "ARA is the module responsible for risk checks and rule-based analyses."
+        }
+      ]
     }
   ]
 }
