@@ -236,6 +236,42 @@
           "text": "ARA is the module responsible for risk checks and rule-based analyses."
         }
       ]
+    },
+    {
+  "id": "emergency-access-management",
+  "order": 6,
+  "menuLabel": "Emergency Access Management (EAM)",
+  "category": "Functionality",
+  "eyebrow": "06 · Functionality",
+  "title": "Emergency Access Management (EAM)",
+  "summary": "How Firefighter IDs grant temporary critical access, and the centralized, decentralized and role-based setups.",
+  "pdf": "assets/pdfs/06-EAM.pdf",
+  "pdfLabel": "6. EAM.pdf",
+  "readTime": "9 min",
+  "blocks": [
+    {
+      "type": "intro",
+      "text": "EAM (formerly SPM in GRC 5.x, Fire Fighter in VIRSA 4.0) lets users temporarily use elevated 'Firefighter' access for critical, rarely-used transactions — without permanently assigning risky access to their normal ID."
     }
+  ]
+},
+{
+  "id": "business-role-management",
+  "order": 7,
+  "menuLabel": "Business Role Management (BRM)",
+  "category": "Functionality",
+  "eyebrow": "07 · Functionality",
+  "title": "Business Role Management (BRM)",
+  "summary": "How BRM standardizes role creation with a defined methodology, and makes roles visible for access requests via ARM.",
+  "pdf": "assets/pdfs/07-BRM.pdf",
+  "pdfLabel": "7. BRM.pdf",
+  "readTime": "9 min",
+  "blocks": [
+    {
+      "type": "intro",
+      "text": "BRM (formerly ERM in GRC 5.x, Role Expert in VIRSA 4.0) automates and governs role creation, approval, testing and import — so roles built in the backend become visible and requestable through GRC's access request form (ARM)."
+    }
+  ]
+}
   ]
 }
