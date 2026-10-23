@@ -281,7 +281,7 @@
     "eyebrow": "08 · Functionality",
     "title": "Access Request Management (ARM)",
     "summary": "How ARM automates SAP user access requests, multi-stage approvals through MSMP workflows, risk checks, and user provisioning across connected backend systems.",
-    "pdf": "assets/pdfs/8 - ARM.pdf",
+    "pdf": "assets/pdfs/08-ARM.pdf",
     "pdfLabel": "8. ARM.pdf",
     "readTime": "15 min",
     "blocks": [
