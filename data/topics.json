@@ -1,4 +1,6 @@
-{
+    ]
+  },
+  {
   "siteTitle": "GRC Notes",
   "siteSubtitle": "SAP Security & GRC — Field Reference",
   "topics": [
@@ -272,6 +274,42 @@
       "text": "BRM (formerly ERM in GRC 5.x, Role Expert in VIRSA 4.0) automates and governs role creation, approval, testing and import — so roles built in the backend become visible and requestable through GRC's access request form (ARM)."
     }
   ]
-}
+},
+  {
+    "id": "access-request-management",
+    "order": 8,
+    "menuLabel": "Access Request Management (ARM)",
+    "category": "Functionality",
+    "eyebrow": "08 · Functionality",
+    "title": "Access Request Management (ARM)",
+    "summary": "How ARM automates SAP user access requests, multi-stage approvals through MSMP workflows, risk checks, and user provisioning across connected backend systems.",
+    "pdf": "assets/pdfs/08-ARM.pdf",
+    "pdfLabel": "8. ARM.pdf",
+    "readTime": "15 min",
+    "blocks": [
+      {
+        "type": "intro",
+        "text": "ARM (Access Request Management) automates and governs SAP user administration, including new user creation, user modification, deletion, locking, unlocking, and role assignment. It uses MSMP (Multi-Stage Multi-Path) workflows to route requests through configured approvers and supports automatic or manual provisioning."
+      }
+    ]
+  },
+  {
+    "id": "arm-modify-task-settings",
+    "order": 8.1,
+    "menuLabel": "ARM – Modify Task Settings",
+    "category": "Functionality",
+    "eyebrow": "08.1 · Functionality",
+    "title": "ARM – Modify Task Settings",
+    "summary": "Understanding MSMP task settings that control workflow behavior, role re-evaluation, approval and rejection actions, risk analysis, request forwarding, and provisioning options.",
+    "pdf": "assets/pdfs/08.1-ARM-Modify-Task-Settings.pdf",
+    "pdfLabel": "8.1. ARM - Modify Task Settings.pdf",
+    "readTime": "7 min",
+    "blocks": [
+      {
+        "type": "intro",
+        "text": "Modify Task Settings in MSMP control the actions available to approvers and how access requests behave during each workflow stage. The settings cover runtime configuration changes, path re-evaluation, rerouting, approval and rejection confirmations, email actions, mandatory comments, approval levels, risk analysis requirements, and manual provisioning."
+      }
+    ]
+  }
   ]
 }
